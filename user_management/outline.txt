@@ -1,0 +1,91 @@
+一、项目概述
+user_management 是一个用户管理系统，users 作为核心应用，主要负责用户的注册、登录、权限管理、兴趣管理等功能。
+
+二、项目结构
+user_management/
+├── manage.py
+├── user_management/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+├── users/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── urls.py
+│   └── tests.py
+├── database.sql
+└── requirements.txt
+三、核心功能模块
+1. 用户认证模块（users 应用）
+注册
+邮箱注册，发送激活邮件。
+验证邮箱格式和唯一性。
+密码强度验证。
+登录
+邮箱和密码登录。
+JWT 令牌生成。
+检查用户是否激活。
+登出
+刷新令牌加入黑名单。
+2. 用户信息管理模块
+个人信息更新
+用户名、头像更新。
+密码修改
+验证旧密码，设置新密码。
+3. 兴趣管理模块
+兴趣展示
+随机展示用户兴趣（最多 10 个）。
+兴趣更新
+通过兴趣 ID 或名称更新用户兴趣。
+自动创建不存在的兴趣。
+4. 权限管理模块
+用户分组
+用户与用户组关联。
+用户权限
+用户与权限关联。
+四、技术实现
+1. 后端技术栈
+框架：Django + Django REST Framework
+数据库：MySQL
+认证：JWT（JSON Web Token）
+邮件发送：SMTP 协议
+2. 核心模型设计（users/models.py）
+User：继承 AbstractUser，包含邮箱、是否激活、头像、兴趣等字段。
+Interest：兴趣模型，包含兴趣名称、创建时间。
+UserInterest：用户与兴趣的关联模型，包含排序字段。
+3. 视图设计（users/views.py）
+UserViewSet：处理用户注册、登录、登出、信息更新、密码修改、兴趣更新等操作。
+InterestViewSet：处理兴趣的增删改查操作。
+4. 序列化器设计（users/serializers.py）
+UserSerializer：用户序列化器，处理用户的创建和展示。
+UserUpdateSerializer：用户信息更新序列化器。
+PasswordChangeSerializer：密码修改序列化器。
+InterestSerializer：兴趣序列化器。
+InterestUpdateSerializer：兴趣更新序列化器。
+五、API 接口设计
+1. 用户相关接口
+POST /api/users/：用户注册
+POST /api/users/login/：用户登录
+POST /api/users/logout/：用户登出
+PUT /api/users/update_profile/：更新用户信息
+POST /api/users/change_password/：修改密码
+2. 兴趣相关接口
+GET /api/users/showinterest/：展示用户兴趣
+POST /api/users/update_interests/：更新用户兴趣
+GET /api/interests/：获取所有兴趣
+POST /api/interests/：创建兴趣
+六、数据库设计
+1. 主要表
+users：用户表
+interests：兴趣表
+user_interests：用户与兴趣关联表
+auth_group：用户组表
+auth_permission：权限表
+users_user_groups：用户与用户组关联表
+users_user_user_permissions：用户与权限关联表
