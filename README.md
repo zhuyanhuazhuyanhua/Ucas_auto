@@ -1,6 +1,6 @@
 # `user_management` 用户管理系统
 
-一个基于 Django 和 Django REST Framework 的用户管理系统，支持注册、登录、登出、个人信息管理、兴趣管理和权限控制等功能。
+一个基于 Django 和 Django REST Framework 的用户管理系统，支持注册、登录、登出、个人信息管理、兴趣管理和权限控制等功能。中科院自动化所多模态实验室
 
 ---
 
